@@ -40,7 +40,6 @@
         h1 { font-size: 1.8rem; margin: 0; }
         p { color: #8b949e; margin-top: 5px; }
 
-        /* Search Box */
         .search-container {
             margin-bottom: 30px;
             width: 100%;
@@ -99,7 +98,6 @@
             border-color: var(--accent-success);
         }
 
-        /* Toast Notification */
         #toast {
             visibility: hidden;
             min-width: 250px;
@@ -161,9 +159,11 @@
         setTimeout(() => { toast.className = ""; }, 3000);
     }
 
-    function renderSymbols() {
+    function renderSymbols(filter = "") {
         vault.innerHTML = '';
         symbolData.forEach(section => {
+            if (filter && !section.cat.toLowerCase().includes(filter.toLowerCase())) return;
+
             const header = document.createElement('div');
             header.className = 'category-header';
             header.innerText = section.cat;
@@ -187,6 +187,7 @@
         });
     }
 
+    document.getElementById('searchInput').oninput = (e) => renderSymbols(e.target.value);
     renderSymbols();
 </script>
 
